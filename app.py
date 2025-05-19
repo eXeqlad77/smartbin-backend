@@ -2,13 +2,16 @@ from flask import Flask, request, jsonify
 import os
 import logging
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv  
+
+load_dotenv()  
 
 app = Flask(__name__)
 
 logging.basicConfig(level=logging.INFO)
 
-# Veritabanı bağlantısı
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://smartbin_db_user:LqHxJhnplRvCwdvy80RmXPBu6cCxYZHG@dpg-d0l28od6ubrc73bnq3d0-a.oregon-postgres.render.com/smartbin_db"
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
